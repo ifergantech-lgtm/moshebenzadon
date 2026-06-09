@@ -1,0 +1,6 @@
+design-options/
+node_modules/
+dist/
+.vercel/
+.git/
+*.log
