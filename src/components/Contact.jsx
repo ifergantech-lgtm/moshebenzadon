@@ -48,7 +48,7 @@ export default function Contact({ bare = false }) {
               </div>
               <div className="cinfo">
                 <span className="cinfo__ic"><PinIcon /></span>
-                <span><b>{t('contact.location')}</b><span>Classic Jerusalem Realty</span></span>
+                <span><b>{t('contact.location')}</b><span>All Jerusalem neighborhoods</span></span>
               </div>
             </div>
           </div>

@@ -24,7 +24,7 @@ export default function SettingsPanel({ settings, onChange }) {
               type="text"
               value={settings.brand}
               onChange={e => set('brand', e.target.value)}
-              placeholder="Classic Jerusalem Realty"
+              placeholder="Moshe"
             />
           </div>
           <div className="a-field">
@@ -34,7 +34,7 @@ export default function SettingsPanel({ settings, onChange }) {
               type="text"
               value={settings.agent}
               onChange={e => set('agent', e.target.value)}
-              placeholder="Moshe Benzadon"
+              placeholder="Moshe"
             />
           </div>
         </div>

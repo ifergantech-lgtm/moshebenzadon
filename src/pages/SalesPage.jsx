@@ -11,7 +11,7 @@ export default function SalesPage() {
         eyebrow={t('sales.eyebrow')}
         title={t('pages.sales.title')}
         sub={t('pages.sales.sub')}
-        image="/images/jerusalem-oldcity-dome-2.jpg"
+        image="/images/jerusalem-tower-david.jpg"
         crumb={t('nav.sales')}
       />
       <Sales bare />

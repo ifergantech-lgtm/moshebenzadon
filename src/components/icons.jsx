@@ -103,14 +103,17 @@ export const UserIcon = (p) => (
   </svg>
 )
 
+// Personal monogram for Moshe — an elegant gold "M" in a dark bordered square.
 export const BrandMark = (p) => (
   <svg viewBox="0 0 64 64" aria-hidden="true" {...p}>
-    <rect width="64" height="64" rx="13" fill="#0e1014" stroke="rgba(216,180,106,.4)" strokeWidth="1" />
-    <g fill="none" stroke="#d8b46a" strokeWidth="2.4" strokeLinejoin="round" strokeLinecap="round">
-      <path d="M16 48V30l6-4.5 6 4.5v18" />
-      <path d="M28 48V22l8-6 8 6v26" />
-      <path d="M40 48V31l5-4v21" />
-      <path d="M13 48h40" />
-    </g>
+    <defs>
+      <linearGradient id="mbg" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stopColor="#f0d999" />
+        <stop offset="1" stopColor="#c79a4e" />
+      </linearGradient>
+    </defs>
+    <rect x="1.1" y="1.1" width="61.8" height="61.8" rx="15" fill="#0e1014" stroke="rgba(216,180,106,.5)" strokeWidth="1.2" />
+    <path d="M17 45 V21 L32 37.5 L47 21 V45" fill="none" stroke="url(#mbg)" strokeWidth="2.7" strokeLinecap="round" strokeLinejoin="round" />
+    <circle cx="32" cy="50" r="1.5" fill="#d8b46a" />
   </svg>
 )

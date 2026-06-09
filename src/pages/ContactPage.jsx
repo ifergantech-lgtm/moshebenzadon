@@ -10,7 +10,7 @@ export default function ContactPage() {
         eyebrow={t('contact.eyebrow')}
         title={t('pages.contact.title')}
         sub={t('pages.contact.sub')}
-        image="/images/jerusalem-aerial-olives.jpg"
+        image="/images/jerusalem-kotel-2.jpg"
         crumb={t('nav.contact')}
       />
       <Contact bare />

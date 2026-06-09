@@ -1,16 +1,16 @@
 {
   "settings": {
-    "brand": "Classic Jerusalem Realty",
-    "agent": "Moshe Benzadon",
+    "brand": "Moshe",
+    "agent": "Moshe",
     "whatsappLink": "https://wa.me/message/CVXZWPQ54HCGL1",
     "whatsappNumberDisplay": "+972 51-517-9928",
     "whatsappNumberIntl": "972515179928",
     "priceMin": 6000,
     "priceMax": 25000,
     "about": {
-      "en": "I'm Moshe Benzadon, a Jerusalem real-estate agent focused on long-term apartment rentals — and home sales. I grew up around this city and I know its neighborhoods, its buildings and its rhythms. My clients stay with me because I'm fast, straight and genuinely on their side: I check the contract, deal with the owner and make sure you get a good deal — not just a quick one.",
-      "he": "אני משה בן זדון, סוכן נדל\"ן בירושלים המתמקד בהשכרת דירות לטווח ארוך — וגם במכירת בתים. גדלתי סביב העיר הזו ואני מכיר את השכונות, הבניינים והקצב שלה. הלקוחות שלי נשארים איתי כי אני מהיר, ישר ובאמת לצידם: בודק את החוזה, מתנהל מול בעל הבית ומוודא שאתם מקבלים עסקה טובה — לא רק מהירה.",
-      "es": "Soy Moshe Benzadon, agente inmobiliario en Jerusalén centrado en alquileres de larga duración — y venta de viviendas. Crecí en torno a esta ciudad y conozco sus barrios, sus edificios y su ritmo. Mis clientes se quedan conmigo porque soy rápido, directo y de verdad estoy de su lado: reviso el contrato, trato con el propietario y me aseguro de que consigas un buen trato — no solo uno rápido."
+      "en": "I'm Moshe, a Jerusalem real-estate agent focused on long-term apartment rentals — and home sales. I grew up around this city and I know its neighborhoods, its buildings and its rhythms. My clients stay with me because I'm fast, straight and genuinely on their side: I check the contract, deal with the owner and make sure you get a good deal — not just a quick one.",
+      "he": "אני משה, סוכן נדל\"ן בירושלים המתמקד בהשכרת דירות לטווח ארוך — וגם במכירת בתים. גדלתי סביב העיר הזו ואני מכיר את השכונות, הבניינים והקצב שלה. הלקוחות שלי נשארים איתי כי אני מהיר, ישר ובאמת לצידם: בודק את החוזה, מתנהל מול בעל הבית ומוודא שאתם מקבלים עסקה טובה — לא רק מהירה.",
+      "es": "Soy Moshe, agente inmobiliario en Jerusalén centrado en alquileres de larga duración — y venta de viviendas. Crecí en torno a esta ciudad y conozco sus barrios, sus edificios y su ritmo. Mis clientes se quedan conmigo porque soy rápido, directo y de verdad estoy de su lado: reviso el contrato, trato con el propietario y me aseguro de que consigas un buen trato — no solo uno rápido."
     }
   },
   "listings": [

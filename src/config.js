@@ -1,6 +1,6 @@
 // Central business config — single source of truth.
-export const BRAND = 'Classic Jerusalem Realty'
-export const AGENT = 'Moshe Benzadon'
+export const BRAND = 'Moshe'
+export const AGENT = 'Moshe'
 
 // Moshe's BUSINESS WhatsApp (the only number in use).
 export const WHATSAPP_LINK = 'https://wa.me/message/CVXZWPQ54HCGL1'

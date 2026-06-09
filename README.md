@@ -1,12 +1,12 @@
-# Classic Jerusalem Realty — Moshe Benzadon
+# Moshe — Jerusalem Real Estate
 
-Marketing website for **Moshe Benzadon**, a Jerusalem real‑estate agent specialising in
+Marketing website for **Moshe**, a Jerusalem real‑estate agent specialising in
 long‑term apartment rentals (and home sales). Built as a fast, fully‑responsive,
 trilingual single‑page site with a cinematic animated hero.
 
 ## Highlights
 
-- **Luxury dark & gold** design that matches the Classic Jerusalem Realty brand.
+- **Luxury dark & gold** personal brand for Moshe.
 - **Trilingual**: English, **Hebrew (RTL)** and Spanish, with a language switcher (preference saved).
 - **WOW hero**: night panorama of the Old City + a lazy‑loaded React Three Fiber golden‑dust layer
   with mouse parallax. Falls back to a static image on mobile and for `prefers-reduced-motion`.

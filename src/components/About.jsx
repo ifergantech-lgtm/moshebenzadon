@@ -33,8 +33,8 @@ export default function About({ bare = false }) {
               </div>
             )}
             <div className="portrait__tag">
-              <b>{settings.agent || 'Moshe Benzadon'}</b>
-              <span>{settings.brand || 'Classic Jerusalem Realty'}</span>
+              <b>{settings.agent || 'Moshe'}</b>
+              <span>Jerusalem Real Estate</span>
             </div>
           </div>
 

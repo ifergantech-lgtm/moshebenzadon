@@ -11,7 +11,7 @@ export default function ServicesPage() {
         eyebrow={t('services.eyebrow')}
         title={t('pages.services.title')}
         sub={t('pages.services.sub')}
-        image="/images/jerusalem-street-door.jpg"
+        image="/images/jerusalem-night-alley.jpg"
         crumb={t('nav.services')}
       />
       <Services bare />

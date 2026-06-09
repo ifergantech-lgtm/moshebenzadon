@@ -3,8 +3,8 @@ import { createContext, useContext, useEffect, useState } from 'react'
 // Default/fallback content so the site always renders even if the fetch fails.
 const FALLBACK = {
   settings: {
-    brand: 'Classic Jerusalem Realty',
-    agent: 'Moshe Benzadon',
+    brand: 'Moshe',
+    agent: 'Moshe',
     whatsappLink: 'https://wa.me/message/CVXZWPQ54HCGL1',
     whatsappNumberDisplay: '+972 51-517-9928',
     whatsappNumberIntl: '972515179928',

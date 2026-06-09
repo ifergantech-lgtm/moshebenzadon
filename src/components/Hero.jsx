@@ -28,7 +28,7 @@ export default function Hero() {
   return (
     <section className="hero" id="home">
       <div className="hero__media">
-        <img className="hero__img" src="/images/jerusalem-dome-rock.jpg" alt="The Old City of Jerusalem lit up at night, seen from the Mount of Olives" fetchpriority="high" />
+        <img className="hero__img" src="/images/jerusalem-kotel-1.jpg" alt="The Western Wall and the Israeli flag in the Old City of Jerusalem" fetchpriority="high" />
       </div>
       {enable3d && (
         <div className="hero__canvas">

@@ -9,8 +9,8 @@ import { IconSave } from './AdminIcons.jsx'
 // ────────────────────────────────────────────────────────────────
 const DEFAULT_CONTENT = {
   settings: {
-    brand: 'Classic Jerusalem Realty',
-    agent: 'Moshe Benzadon',
+    brand: 'Moshe',
+    agent: 'Moshe',
     whatsappLink: 'https://wa.me/message/CVXZWPQ54HCGL1',
     whatsappNumberDisplay: '+972 51-517-9928',
     whatsappNumberIntl: '972515179928',
@@ -40,8 +40,8 @@ function LoginGate({ onLogin, error }) {
     <div className="admin-root">
       <div className="admin-login">
         <div className="admin-login__box">
-          <div className="admin-login__logo">Classic Jerusalem Realty</div>
-          <div className="admin-login__sub">Admin Panel — Moshe Benzadon</div>
+          <div className="admin-login__logo">Moshe</div>
+          <div className="admin-login__sub">Admin Panel — Moshe</div>
 
           <form onSubmit={handleSubmit}>
             <label className="admin-login__label" htmlFor="login-pw">
@@ -223,7 +223,7 @@ export default function AdminApp() {
       <header className="admin-header">
         <div className="admin-header__inner">
           <div className="admin-header__brand">
-            Classic Jerusalem Realty
+            Moshe
             <span>Admin</span>
           </div>
           <div className="admin-header__right">
