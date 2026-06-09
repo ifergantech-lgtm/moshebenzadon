@@ -1,0 +1,98 @@
+{
+  "settings": {
+    "brand": "Classic Jerusalem Realty",
+    "agent": "Moshe Benzadon",
+    "whatsappLink": "https://wa.me/message/CVXZWPQ54HCGL1",
+    "whatsappNumberDisplay": "+972 51-517-9928",
+    "whatsappNumberIntl": "972515179928",
+    "priceMin": 6000,
+    "priceMax": 25000,
+    "about": {
+      "en": "I'm Moshe Benzadon, a Jerusalem real-estate agent focused on long-term apartment rentals — and home sales. I grew up around this city and I know its neighborhoods, its buildings and its rhythms. My clients stay with me because I'm fast, straight and genuinely on their side: I check the contract, deal with the owner and make sure you get a good deal — not just a quick one.",
+      "he": "אני משה בן זדון, סוכן נדל\"ן בירושלים המתמקד בהשכרת דירות לטווח ארוך — וגם במכירת בתים. גדלתי סביב העיר הזו ואני מכיר את השכונות, הבניינים והקצב שלה. הלקוחות שלי נשארים איתי כי אני מהיר, ישר ובאמת לצידם: בודק את החוזה, מתנהל מול בעל הבית ומוודא שאתם מקבלים עסקה טובה — לא רק מהירה.",
+      "es": "Soy Moshe Benzadon, agente inmobiliario en Jerusalén centrado en alquileres de larga duración — y venta de viviendas. Crecí en torno a esta ciudad y conozco sus barrios, sus edificios y su ritmo. Mis clientes se quedan conmigo porque soy rápido, directo y de verdad estoy de su lado: reviso el contrato, trato con el propietario y me aseguro de que consigas un buen trato — no solo uno rápido."
+    }
+  },
+  "listings": [
+    {
+      "id": "haneviim-court",
+      "name": "Haneviim Court",
+      "area": "City Center",
+      "price": 14900,
+      "sqm": null,
+      "beds": 3,
+      "baths": null,
+      "entry": "immediate",
+      "inclArnona": false,
+      "badge": "hotDeal",
+      "note": "Prime location — won't stay on the market",
+      "image": "/images/interior-kitchen-2.jpg",
+      "features": ["furnished", "balcony", "parking", "gym", "security", "mamad"],
+      "active": true
+    },
+    {
+      "id": "haneviim",
+      "name": "Haneviim St.",
+      "area": "City Center",
+      "price": 16700,
+      "sqm": 130,
+      "beds": 3,
+      "baths": 3,
+      "entry": "immediate",
+      "inclArnona": false,
+      "badge": "",
+      "note": "",
+      "image": "/images/interior-bedroom-2.jpg",
+      "features": ["furnished", "elevator", "balcony2", "sukkah", "parking", "mamad"],
+      "active": true
+    },
+    {
+      "id": "savyon-view",
+      "name": "Savyon View",
+      "area": "City Center",
+      "price": 11000,
+      "sqm": 94,
+      "beds": 2,
+      "baths": 2,
+      "entry": "immediate",
+      "inclArnona": false,
+      "badge": "",
+      "note": "Large balcony with amazing views",
+      "image": "/images/interior-bedroom-1.jpg",
+      "features": ["furnished", "views", "balcony", "parking", "storage", "security", "gym", "mamad"],
+      "active": true
+    },
+    {
+      "id": "baka",
+      "name": "Baka",
+      "area": "South Jerusalem",
+      "price": 12500,
+      "sqm": 105,
+      "beds": 3,
+      "baths": null,
+      "entry": "01/08/2026",
+      "inclArnona": false,
+      "badge": "",
+      "note": "+ private 35 m² garden",
+      "image": "/images/interior-livingroom-1.jpg",
+      "features": ["ground", "garden", "furnished", "mamad", "storage"],
+      "active": true
+    },
+    {
+      "id": "nachlaot",
+      "name": "Nachlaot",
+      "area": "Central Jerusalem",
+      "price": 7300,
+      "sqm": null,
+      "beds": 1,
+      "baths": null,
+      "entry": "16/06/2026",
+      "inclArnona": true,
+      "badge": "",
+      "note": "Beautifully renovated, high-end finish",
+      "image": "/images/interior-kitchen-1.jpg",
+      "features": ["renovated", "furnished", "ground", "quiet", "wifi", "mamad"],
+      "active": true
+    }
+  ]
+}

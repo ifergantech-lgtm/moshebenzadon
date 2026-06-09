@@ -1,19 +1,29 @@
+import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n.jsx'
-import { SearchIcon, ChatIcon, DealIcon, DocIcon, PenIcon, KeyIcon } from './icons.jsx'
+import { SearchIcon, ChatIcon, DealIcon, DocIcon, PenIcon, KeyIcon, ArrowIcon } from './icons.jsx'
 
 const ICONS = [SearchIcon, ChatIcon, DealIcon, DocIcon, PenIcon, KeyIcon]
 
-export default function Services() {
+export default function Services({ bare = false, preview = false }) {
   const { t } = useI18n()
-  const items = t('services.items') || []
+  let items = t('services.items') || []
+  if (preview) items = items.slice(0, 3)
+
   return (
     <section className="section services" id="services">
       <div className="container">
-        <div className="section-head">
-          <div className="eyebrow reveal">{t('services.eyebrow')}</div>
-          <h2 className="section-title reveal d1">{t('services.title')}</h2>
-          <p className="section-sub reveal d2">{t('services.sub')}</p>
-        </div>
+        {!bare && (
+          <div className="section-head services__head">
+            <div>
+              <div className="eyebrow reveal">{t('services.eyebrow')}</div>
+              <h2 className="section-title reveal d1">{t('services.title')}</h2>
+              <p className="section-sub reveal d2">{t('services.sub')}</p>
+            </div>
+            {preview && (
+              <Link className="link-arrow reveal d2" to="/services">{t('home.servicesAll')} <ArrowIcon /></Link>
+            )}
+          </div>
+        )}
 
         <div className="steps">
           {items.map((it, i) => {

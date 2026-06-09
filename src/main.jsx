@@ -1,13 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App.jsx'
 import { I18nProvider } from './i18n.jsx'
+import { ContentProvider } from './content.jsx'
 import './index.css'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <I18nProvider>
-      <App />
-    </I18nProvider>
+    <BrowserRouter>
+      <ContentProvider>
+        <I18nProvider>
+          <App />
+        </I18nProvider>
+      </ContentProvider>
+    </BrowserRouter>
   </React.StrictMode>,
 )

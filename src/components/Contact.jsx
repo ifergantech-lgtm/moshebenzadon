@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { useI18n } from '../i18n.jsx'
-import { waLink, WHATSAPP_LINK, WHATSAPP_NUMBER_DISPLAY, WHATSAPP_NUMBER_INTL } from '../config.js'
+import { useWa } from '../content.jsx'
 import { WhatsAppIcon, PhoneIcon, ClockIcon, PinIcon } from './icons.jsx'
 
-export default function Contact() {
+export default function Contact({ bare = false }) {
   const { t } = useI18n()
+  const { link, waLink, numberDisplay, numberIntl } = useWa()
   const [name, setName] = useState('')
   const [need, setNeed] = useState('')
 
@@ -19,25 +20,27 @@ export default function Contact() {
   return (
     <section className="section contact" id="contact">
       <div className="container">
-        <div className="section-head">
-          <div className="eyebrow reveal">{t('contact.eyebrow')}</div>
-          <h2 className="section-title reveal d1">{t('contact.title')}</h2>
-          <p className="section-sub reveal d2">{t('contact.sub')}</p>
-        </div>
+        {!bare && (
+          <div className="section-head">
+            <div className="eyebrow reveal">{t('contact.eyebrow')}</div>
+            <h2 className="section-title reveal d1">{t('contact.title')}</h2>
+            <p className="section-sub reveal d2">{t('contact.sub')}</p>
+          </div>
+        )}
 
         <div className="contact__grid">
           <div className="contact__panel reveal d1">
-            <a className="btn btn-gold btn-block" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+            <a className="btn btn-gold btn-block" href={link} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon /> {t('contact.ctaPrimary')}
             </a>
             <div className="contact__info">
-              <a className="cinfo" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+              <a className="cinfo" href={link} target="_blank" rel="noopener noreferrer">
                 <span className="cinfo__ic"><WhatsAppIcon /></span>
-                <span><b>WhatsApp</b><span>{WHATSAPP_NUMBER_DISPLAY}</span></span>
+                <span><b>WhatsApp</b><span>{numberDisplay}</span></span>
               </a>
-              <a className="cinfo" href={`tel:+${WHATSAPP_NUMBER_INTL}`}>
+              <a className="cinfo" href={`tel:+${numberIntl}`}>
                 <span className="cinfo__ic"><PhoneIcon /></span>
-                <span><b>{t('contact.call')}</b><span>{WHATSAPP_NUMBER_DISPLAY}</span></span>
+                <span><b>{t('contact.call')}</b><span>{numberDisplay}</span></span>
               </a>
               <div className="cinfo">
                 <span className="cinfo__ic"><ClockIcon /></span>

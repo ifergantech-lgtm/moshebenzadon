@@ -1,12 +1,15 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n.jsx'
-import { WHATSAPP_LINK } from '../config.js'
+import { useContent, useWa } from '../content.jsx'
 import { WhatsAppIcon, ArrowIcon } from './icons.jsx'
 
 const HeroCanvas = lazy(() => import('./HeroCanvas.jsx'))
 
 export default function Hero() {
   const { t } = useI18n()
+  const { settings } = useContent()
+  const { link } = useWa()
   const [enable3d, setEnable3d] = useState(false)
 
   useEffect(() => {
@@ -18,6 +21,9 @@ export default function Hero() {
     rm.addEventListener('change', update)
     return () => { mq.removeEventListener('change', update); rm.removeEventListener('change', update) }
   }, [])
+
+  const min = Number(settings.priceMin || 6000).toLocaleString()
+  const max = Number(settings.priceMax || 25000).toLocaleString()
 
   return (
     <section className="hero" id="home">
@@ -42,15 +48,15 @@ export default function Hero() {
           <p className="hero__sub">{t('hero.sub')}</p>
         </div>
         <div className="hero__cta reveal d3">
-          <a className="btn btn-gold" href={WHATSAPP_LINK} target="_blank" rel="noopener noreferrer">
+          <a className="btn btn-gold" href={link} target="_blank" rel="noopener noreferrer">
             <WhatsAppIcon /> {t('hero.ctaPrimary')}
           </a>
-          <a className="btn btn-ghost" href="#rentals">
+          <Link className="btn btn-ghost" to="/rentals">
             {t('hero.ctaSecondary')} <ArrowIcon style={{ width: 16, height: 16 }} />
-          </a>
+          </Link>
         </div>
         <div className="hero__meta reveal d4">
-          <span className="price-pill"><b>₪6,000&nbsp;–&nbsp;₪25,000</b> <span>{t('hero.priceLabel')}</span></span>
+          <span className="price-pill"><b>₪{min}&nbsp;–&nbsp;₪{max}</b> <span>{t('hero.priceLabel')}</span></span>
           <span className="hero__note">{t('hero.metaNote')}</span>
         </div>
       </div>

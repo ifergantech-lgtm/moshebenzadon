@@ -103,6 +103,25 @@ const dict = {
       ground: 'Ground floor', views: 'Amazing views', garden: 'Garden', quiet: 'Quiet street',
     },
     waFloat: 'Chat with Moshe',
+    pages: {
+      rentals: { title: 'Apartments for rent in Jerusalem', sub: 'Browse the long-term rentals I’m handling right now — then message me on WhatsApp for full details and a video tour.' },
+      sales: { title: 'Buy your home in Jerusalem', sub: 'Investing or buying your family’s home, I find the right property, run the numbers and negotiate hard — all the way to the notary.' },
+      services: { title: 'How I help you, step by step', sub: 'From the first search to the keys in your hand — one agent who takes care of everything.' },
+      about: { title: 'Meet Moshe Benzadon', sub: 'A young Jerusalem agent who’s fast, straight and genuinely on your side.' },
+      contact: { title: 'Get in touch', sub: 'The fastest way to reach me is WhatsApp. Tell me what you’re looking for and I’ll reply with real options.' },
+    },
+    home: {
+      featuredEyebrow: 'Available now',
+      featuredTitle: 'Featured apartments',
+      featuredSub: 'A few of the long-term rentals I’m handling this week.',
+      viewAllApts: 'View all apartments',
+      noListings: 'New apartments come in all the time — message me on WhatsApp for what’s available right now.',
+      servicesAll: 'See the full process',
+      salesText: 'Beyond rentals, I also handle home sales across Jerusalem — from finding the right property to the lawyer and the keys.',
+      aboutTitle: 'A young agent who actually answers',
+      aboutText: 'I treat your search like my own home is on the line — checking the contract, dealing with the owner and making sure you get a good deal.',
+    },
+    common: { learnMore: 'Learn more' },
   },
 
   he: {
@@ -198,6 +217,25 @@ const dict = {
       ground: 'קומת קרקע', views: 'נוף מדהים', garden: 'גינה', quiet: 'רחוב שקט',
     },
     waFloat: 'לדבר עם משה',
+    pages: {
+      rentals: { title: 'דירות להשכרה בירושלים', sub: 'עיינו בהשכרות לטווח ארוך שאני מטפל בהן כעת — ושלחו לי הודעה בוואטסאפ לפרטים מלאים וסרטון.' },
+      sales: { title: 'לקנות בית בירושלים', sub: 'להשקעה או לבית המשפחה — אמצא את הנכס הנכון, אעבור על המספרים ואנהל משא ומתן חזק, עד הנוטריון.' },
+      services: { title: 'איך אני עוזר, צעד אחר צעד', sub: 'מהחיפוש הראשון ועד המפתחות ביד — סוכן אחד שדואג להכול.' },
+      about: { title: 'הכירו את משה בן זדון', sub: 'סוכן צעיר בירושלים — מהיר, ישר ובאמת לצידכם.' },
+      contact: { title: 'יצירת קשר', sub: 'הדרך המהירה ביותר אליי היא וואטסאפ. ספרו לי מה אתם מחפשים ואחזור עם אפשרויות אמיתיות.' },
+    },
+    home: {
+      featuredEyebrow: 'זמין עכשיו',
+      featuredTitle: 'דירות נבחרות',
+      featuredSub: 'כמה מההשכרות לטווח ארוך שאני מטפל בהן השבוע.',
+      viewAllApts: 'לכל הדירות',
+      noListings: 'דירות חדשות נכנסות כל הזמן — שלחו לי הודעה בוואטסאפ למה שזמין עכשיו.',
+      servicesAll: 'לתהליך המלא',
+      salesText: 'מעבר להשכרות, אני מטפל גם במכירת בתים בכל ירושלים — ממציאת הנכס ועד עורך הדין והמפתחות.',
+      aboutTitle: 'סוכן צעיר שבאמת עונה',
+      aboutText: 'אני מתייחס לחיפוש שלכם כאילו הבית שלי על הכף — בודק את החוזה, מתנהל מול בעל הבית ומוודא שתקבלו עסקה טובה.',
+    },
+    common: { learnMore: 'לפרטים' },
   },
 
   es: {
@@ -293,6 +331,25 @@ const dict = {
       ground: 'Planta baja', views: 'Vistas increíbles', garden: 'Jardín', quiet: 'Calle tranquila',
     },
     waFloat: 'Hablar con Moshe',
+    pages: {
+      rentals: { title: 'Apartamentos en alquiler en Jerusalén', sub: 'Mira los alquileres de larga duración que gestiono ahora — y escríbeme por WhatsApp para todos los detalles y un vídeo.' },
+      sales: { title: 'Compra tu casa en Jerusalén', sub: 'Para invertir o comprar la casa de tu familia, encuentro la propiedad adecuada, repaso los números y negocio con firmeza, hasta el notario.' },
+      services: { title: 'Cómo te ayudo, paso a paso', sub: 'De la primera búsqueda a las llaves en tu mano — un solo agente que se encarga de todo.' },
+      about: { title: 'Conoce a Moshe Benzadon', sub: 'Un agente joven en Jerusalén, rápido, directo y de verdad de tu lado.' },
+      contact: { title: 'Contacto', sub: 'La forma más rápida de contactarme es WhatsApp. Dime qué buscas y te responderé con opciones reales.' },
+    },
+    home: {
+      featuredEyebrow: 'Disponible ahora',
+      featuredTitle: 'Apartamentos destacados',
+      featuredSub: 'Algunos de los alquileres de larga duración que gestiono esta semana.',
+      viewAllApts: 'Ver todos los pisos',
+      noListings: 'Entran pisos nuevos continuamente — escríbeme por WhatsApp para ver lo disponible ahora.',
+      servicesAll: 'Ver todo el proceso',
+      salesText: 'Además de alquileres, gestiono la venta de viviendas en toda Jerusalén — desde encontrar la propiedad hasta el abogado y las llaves.',
+      aboutTitle: 'Un agente joven que de verdad responde',
+      aboutText: 'Trato tu búsqueda como si fuera mi propia casa — reviso el contrato, trato con el propietario y me aseguro de que consigas un buen trato.',
+    },
+    common: { learnMore: 'Saber más' },
   },
 }
 

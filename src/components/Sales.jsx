@@ -1,15 +1,17 @@
 import { useI18n } from '../i18n.jsx'
-import { waLink } from '../config.js'
+import { useWa } from '../content.jsx'
 import { TagIcon, ScaleIcon, ShieldIcon, WhatsAppIcon } from './icons.jsx'
 
-export default function Sales() {
+export default function Sales({ bare = false }) {
   const { t } = useI18n()
+  const { waLink } = useWa()
   const points = [
     { Icon: TagIcon, h: t('sales.p1'), d: t('sales.p1d') },
     { Icon: ScaleIcon, h: t('sales.p2'), d: t('sales.p2d') },
     { Icon: ShieldIcon, h: t('sales.p3'), d: t('sales.p3d') },
   ]
   const msg = `${t('sales.cta')} — ${t('sales.eyebrow')}`
+
   return (
     <section className="section sales" id="sales">
       <div className="container">
@@ -18,8 +20,8 @@ export default function Sales() {
             <img src="/images/jerusalem-aerial-day.jpg" alt="Jerusalem rooftops and the Dome of the Rock at golden hour" loading="lazy" />
           </div>
           <div className="sales__text">
-            <div className="eyebrow reveal">{t('sales.eyebrow')}</div>
-            <h2 className="section-title reveal d1">{t('sales.title')}</h2>
+            {!bare && <div className="eyebrow reveal">{t('sales.eyebrow')}</div>}
+            {!bare && <h2 className="section-title reveal d1">{t('sales.title')}</h2>}
             <p className="section-sub reveal d2">{t('sales.sub')}</p>
 
             <div className="sales__points">
