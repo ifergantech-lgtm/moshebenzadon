@@ -11,7 +11,7 @@ export default function RentalsPage() {
         eyebrow={t('rentals.eyebrow')}
         title={t('pages.rentals.title')}
         sub={t('pages.rentals.sub')}
-        image="/images/jerusalem-kotel-2.jpg"
+        image="/images/jerusalem-building-1.jpg"
         crumb={t('nav.rentals')}
       />
       <Listings variant="bare" />

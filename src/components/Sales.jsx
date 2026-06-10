@@ -17,7 +17,7 @@ export default function Sales({ bare = false }) {
       <div className="container">
         <div className="sales__grid">
           <div className="sales__media reveal">
-            <img src="/images/jerusalem-street-door.jpg" alt="A doorway in a Jerusalem stone building" loading="lazy" />
+            <img src="/images/jerusalem-interior.jpg" alt="A modern apartment interior in Jerusalem" loading="lazy" />
           </div>
           <div className="sales__text">
             {!bare && <div className="eyebrow reveal">{t('sales.eyebrow')}</div>}

@@ -11,7 +11,7 @@ import { supabase, dbToSettings, dbToListing, settingsToDb, listingToDb } from '
 const DEFAULT_SETTINGS = {
   brand: 'Moshe',
   agent: 'Moshe',
-  whatsappLink: 'https://wa.me/message/CVXZWPQ54HCGL1',
+  whatsappLink: 'https://wa.me/972515179928',
   whatsappNumberDisplay: '+972 51-517-9928',
   whatsappNumberIntl: '972515179928',
   priceMin: 6000,

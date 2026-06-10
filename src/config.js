@@ -3,7 +3,7 @@ export const BRAND = 'Moshe'
 export const AGENT = 'Moshe'
 
 // Moshe's BUSINESS WhatsApp (the only number in use).
-export const WHATSAPP_LINK = 'https://wa.me/message/CVXZWPQ54HCGL1'
+export const WHATSAPP_LINK = 'https://wa.me/972515179928'
 export const WHATSAPP_NUMBER_DISPLAY = '+972 51-517-9928'
 export const WHATSAPP_NUMBER_INTL = '972515179928'
 export const EMAIL = '' // optional, add later if Moshe wants one shown

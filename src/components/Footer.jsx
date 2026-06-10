@@ -29,7 +29,6 @@ export default function Footer() {
               <h5>{settings.brand}</h5>
               <Link to="/rentals">{t('footer.rentals')}</Link>
               <Link to="/sales">{t('footer.sales')}</Link>
-              <Link to="/services">{t('footer.services')}</Link>
               <Link to="/about">{t('footer.about')}</Link>
               <Link to="/contact">{t('footer.contact')}</Link>
             </div>

@@ -7,7 +7,6 @@ import { BrandMark, WhatsAppIcon } from './icons.jsx'
 const LINKS = [
   { to: '/rentals', key: 'rentals' },
   { to: '/sales', key: 'sales' },
-  { to: '/services', key: 'services' },
   { to: '/about', key: 'about' },
   { to: '/contact', key: 'contact' },
 ]

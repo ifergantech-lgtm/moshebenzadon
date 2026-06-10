@@ -12,7 +12,7 @@ export default function AboutPage() {
         eyebrow={t('about.eyebrow')}
         title={t('pages.about.title')}
         sub={t('pages.about.sub')}
-        image="/images/jerusalem-kotel-pray.jpg"
+        image="/images/jerusalem-mamilla.jpg"
         crumb={t('nav.about')}
       />
       <About bare />

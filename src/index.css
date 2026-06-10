@@ -18,8 +18,8 @@
   --radius:18px;
   --radius-sm:12px;
   --maxw:1240px;
-  --serif:'Playfair Display', Georgia, serif;
-  --sans:'Inter', system-ui, -apple-system, sans-serif;
+  --serif:'Cormorant Garamond', Georgia, serif;
+  --sans:'Manrope', system-ui, -apple-system, sans-serif;
   --shadow:0 24px 70px rgba(0,0,0,.5);
   --ease:cubic-bezier(.2,.7,.2,1);
 }
@@ -43,7 +43,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* Hebrew: use Heebo for clean RTL rendering (Playfair has no Hebrew glyphs) */
 [dir="rtl"] body, [dir="rtl"]{font-family:'Heebo', var(--sans)}
 [dir="rtl"] .serif, [dir="rtl"] h1, [dir="rtl"] h2, [dir="rtl"] .hero__title,
-[dir="rtl"] .section-title, [dir="rtl"] .brand__name{font-family:'Heebo', var(--sans);font-weight:700}
+[dir="rtl"] .section-title, [dir="rtl"] .brand__name{font-family:'Frank Ruhl Libre', serif;font-weight:600}
 
 /* ---------- layout helpers ---------- */
 .container{width:100%;max-width:var(--maxw);margin:0 auto;padding:0 clamp(20px,5vw,64px)}

@@ -82,17 +82,11 @@ export default function Listings({ variant = 'full', limit }) {
           </div>
         )}
 
-        {items.length > 0 && (featured || bare) && (
+        {items.length > 0 && featured && (
           <div className="listings__foot reveal">
-            {featured ? (
-              <Link className="btn btn-ghost" to="/rentals">
-                {t('home.viewAllApts')} <ArrowIcon style={{ width: 16, height: 16 }} />
-              </Link>
-            ) : (
-              <a className="btn btn-ghost" href={link} target="_blank" rel="noopener noreferrer">
-                {t('rentals.viewAll')} <ArrowIcon style={{ width: 16, height: 16 }} />
-              </a>
-            )}
+            <Link className="btn btn-ghost" to="/rentals">
+              {t('home.viewAllApts')} <ArrowIcon style={{ width: 16, height: 16 }} />
+            </Link>
           </div>
         )}
       </div>

@@ -11,7 +11,6 @@ export default function HomePage() {
       <Hero />
       <Stats />
       <Listings variant="featured" limit={3} />
-      <Services preview />
       <HomeExplore />
       <ContactBand />
     </>
