@@ -15,7 +15,7 @@ function formatPrice(p) {
   return '₪' + Number(p).toLocaleString()
 }
 
-export default function ListingsPanel({ listings, onChange, onAddImage }) {
+export default function ListingsPanel({ listings, onChange }) {
   const [modal, setModal] = useState(null) // null | { mode:'add' } | { mode:'edit', listing }
   const [confirmDelete, setConfirmDelete] = useState(null) // listing id or null
 
@@ -27,11 +27,7 @@ export default function ListingsPanel({ listings, onChange, onAddImage }) {
     setModal({ mode: 'add' })
   }
 
-  function handleFormSave(savedListing, uploadedImage) {
-    if (uploadedImage) {
-      onAddImage(savedListing.image, uploadedImage.dataUrl)
-    }
-
+  function handleFormSave(savedListing) {
     if (modal.mode === 'edit') {
       onChange(listings.map(l => l.id === savedListing.id ? savedListing : l))
     } else {
@@ -185,6 +181,7 @@ export default function ListingsPanel({ listings, onChange, onAddImage }) {
           onClose={() => setModal(null)}
         />
       )}
+
 
       {/* Confirm delete */}
       {confirmDelete && deleteTarget && (

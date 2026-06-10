@@ -1,39 +1,46 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect } from 'react'
 import './admin.css'
 import SettingsPanel from './SettingsPanel.jsx'
 import ListingsPanel from './ListingsPanel.jsx'
 import { IconSave } from './AdminIcons.jsx'
+import { supabase, dbToSettings, dbToListing, settingsToDb, listingToDb } from '../supabase.js'
 
 // ────────────────────────────────────────────────────────────────
-//  Defaults used when content.json is unavailable
+//  Defaults used when there is no settings row yet
 // ────────────────────────────────────────────────────────────────
-const DEFAULT_CONTENT = {
-  settings: {
-    brand: 'Moshe',
-    agent: 'Moshe',
-    whatsappLink: 'https://wa.me/message/CVXZWPQ54HCGL1',
-    whatsappNumberDisplay: '+972 51-517-9928',
-    whatsappNumberIntl: '972515179928',
-    priceMin: 6000,
-    priceMax: 25000,
-    about: { en: '', he: '', es: '' },
-  },
-  listings: [],
+const DEFAULT_SETTINGS = {
+  brand: 'Moshe',
+  agent: 'Moshe',
+  whatsappLink: 'https://wa.me/message/CVXZWPQ54HCGL1',
+  whatsappNumberDisplay: '+972 51-517-9928',
+  whatsappNumberIntl: '972515179928',
+  priceMin: 6000,
+  priceMax: 25000,
+  about: { en: '', he: '', es: '' },
 }
 
-const SESSION_KEY = 'cjr_admin_pw'
-
 // ────────────────────────────────────────────────────────────────
-//  Login Gate
+//  Login Gate — Supabase email + password
 // ────────────────────────────────────────────────────────────────
-function LoginGate({ onLogin, error }) {
-  const [pw, setPw] = useState('')
+function LoginGate({ onLogin }) {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState(null)
+  const [loading, setLoading] = useState(false)
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault()
-    if (!pw.trim()) return
-    sessionStorage.setItem(SESSION_KEY, pw)
-    onLogin()
+    if (!email.trim() || !password.trim()) return
+    setLoading(true)
+    setError(null)
+
+    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+    if (authError) {
+      setError('Wrong email or password.')
+      setLoading(false)
+      return
+    }
+    // onLogin will be triggered by onAuthStateChange in the parent
   }
 
   return (
@@ -44,28 +51,38 @@ function LoginGate({ onLogin, error }) {
           <div className="admin-login__sub">Admin Panel — Moshe</div>
 
           <form onSubmit={handleSubmit}>
-            <label className="admin-login__label" htmlFor="login-pw">
+            <label className="admin-login__label" htmlFor="login-email">
+              Email
+            </label>
+            <input
+              id="login-email"
+              type="email"
+              className="admin-login__input"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              autoFocus
+              placeholder="admin@example.com"
+              autoComplete="email"
+            />
+            <label className="admin-login__label" htmlFor="login-pw" style={{ marginTop: 12 }}>
               Password
             </label>
             <input
               id="login-pw"
               type="password"
               className="admin-login__input"
-              value={pw}
-              onChange={e => setPw(e.target.value)}
-              autoFocus
-              placeholder="Enter admin password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+              placeholder="Enter your password"
               autoComplete="current-password"
             />
-            <button type="submit" className="admin-login__btn">
-              Enter Admin Panel
+            <button type="submit" className="admin-login__btn" disabled={loading}>
+              {loading ? 'Signing in…' : 'Enter Admin Panel'}
             </button>
           </form>
 
           {error && (
-            <div className="admin-login__error">
-              Wrong password — please try again.
-            </div>
+            <div className="admin-login__error">{error}</div>
           )}
         </div>
       </div>
@@ -77,134 +94,146 @@ function LoginGate({ onLogin, error }) {
 //  Main Editor
 // ────────────────────────────────────────────────────────────────
 export default function AdminApp() {
-  // Auth
-  const [authed, setAuthed] = useState(() => Boolean(sessionStorage.getItem(SESSION_KEY)))
-  const [authError, setAuthError] = useState(false)
+  // Auth — initialise from session so there's no flash on reload
+  const [authed, setAuthed] = useState(false)
+  const [authChecked, setAuthChecked] = useState(false)
 
   // Data
   const [loading, setLoading] = useState(true)
-  const [settings, setSettings] = useState(DEFAULT_CONTENT.settings)
-  const [listings, setListings] = useState(DEFAULT_CONTENT.listings)
-
-  // Newly uploaded images this session: { [imagePath]: dataUrl }
-  const uploadedImages = useRef({})
+  const [settings, setSettings] = useState(DEFAULT_SETTINGS)
+  const [listings, setListings] = useState([])
 
   // UI state
   const [tab, setTab] = useState('listings') // 'settings' | 'listings'
   const [saving, setSaving] = useState(false)
   const [saveMsg, setSaveMsg] = useState(null) // { type:'success'|'error', text }
 
-  // ── Load content on mount (or re-auth) ──────────────────────
+  // ── Bootstrap: check existing session, then subscribe to changes ──
+  useEffect(() => {
+    // Check for an existing session on mount
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setAuthed(Boolean(session))
+      setAuthChecked(true)
+    })
+
+    // React to login / logout events (including tab-close token expiry)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setAuthed(Boolean(session))
+      setAuthChecked(true)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
+
+  // ── Load content from Supabase when authed ───────────────────
   useEffect(() => {
     if (!authed) return
     setLoading(true)
 
-    fetch('/data/content.json?t=' + Date.now())
-      .then(r => {
-        if (!r.ok) throw new Error('not found')
-        return r.json()
-      })
-      .then(data => {
-        const s = data.settings ?? {}
-        const l = data.listings ?? []
+    Promise.all([
+      supabase.from('settings').select('*').eq('id', 1).single(),
+      supabase.from('listings').select('*').order('sort', { ascending: true }),
+    ]).then(async ([settingsRes, listingsRes]) => {
+      // Settings
+      if (settingsRes.data) {
+        const s = dbToSettings(settingsRes.data)
         setSettings({
-          ...DEFAULT_CONTENT.settings,
+          ...DEFAULT_SETTINGS,
           ...s,
-          about: { ...DEFAULT_CONTENT.settings.about, ...(s.about ?? {}) },
+          about: { ...DEFAULT_SETTINGS.about, ...s.about },
         })
-        setListings(l)
-      })
-      .catch(() => {
-        setSettings({ ...DEFAULT_CONTENT.settings })
-        setListings([])
-      })
-      .finally(() => setLoading(false))
+      } else {
+        setSettings({ ...DEFAULT_SETTINGS })
+      }
+
+      // Listings — if the DB is empty, start from the bundled starter set
+      let rows = listingsRes.data ? listingsRes.data.map(dbToListing) : []
+      if (rows.length === 0) {
+        try {
+          const cj = await fetch('/data/content.json?t=' + Date.now()).then((r) => (r.ok ? r.json() : null))
+          if (cj && Array.isArray(cj.listings)) rows = cj.listings
+        } catch (e) { /* ignore */ }
+      }
+      setListings(rows)
+    }).finally(() => setLoading(false))
   }, [authed])
 
-  // ── Login handler ────────────────────────────────────────────
-  function handleLogin() {
-    setAuthError(false)
-    setAuthed(true)
-  }
-
-  function handleLogout() {
-    sessionStorage.removeItem(SESSION_KEY)
-    setAuthed(false)
-    setAuthError(false)
-  }
-
-  // ── Add uploaded image to session registry ───────────────────
-  function handleAddImage(imagePath, dataUrl) {
-    uploadedImages.current[imagePath] = dataUrl
+  // ── Logout ───────────────────────────────────────────────────
+  async function handleLogout() {
+    await supabase.auth.signOut()
+    // onAuthStateChange will flip authed → false
   }
 
   // ── Save / Publish ───────────────────────────────────────────
   async function handleSave() {
-    const password = sessionStorage.getItem(SESSION_KEY)
-    if (!password) { handleLogout(); return }
-
     setSaving(true)
     setSaveMsg(null)
 
-    // Build images array from registry
-    const imagesArr = Object.entries(uploadedImages.current).map(([imgPath, dataUrl]) => {
-      // listing.image is like /images/listings/foo.jpg
-      // API expects path: public/images/listings/foo.jpg
-      const path = 'public' + imgPath // /images/… → public/images/…
-      return { path, dataBase64: dataUrl }
-    })
-
-    const body = {
-      password,
-      content: { settings, listings },
-      images: imagesArr,
-    }
-
     try {
-      const res = await fetch('/api/save', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(body),
-      })
+      // 1. Upsert settings
+      const { error: settingsErr } = await supabase
+        .from('settings')
+        .upsert(settingsToDb(settings))
 
-      if (res.status === 401) {
-        // Wrong password — clear session, go back to gate
-        setSaving(false)
-        sessionStorage.removeItem(SESSION_KEY)
-        setAuthed(false)
-        setAuthError(true)
-        return
+      if (settingsErr) throw settingsErr
+
+      // 2a. Read existing listing ids
+      const { data: existing, error: existingErr } = await supabase
+        .from('listings')
+        .select('id')
+
+      if (existingErr) throw existingErr
+
+      const existingIds = (existing || []).map(r => r.id)
+      const currentIds = listings.map(l => l.id)
+      const removedIds = existingIds.filter(id => !currentIds.includes(id))
+
+      // 2b. Delete removed listings
+      if (removedIds.length > 0) {
+        const { error: deleteErr } = await supabase
+          .from('listings')
+          .delete()
+          .in('id', removedIds)
+        if (deleteErr) throw deleteErr
       }
 
-      if (!res.ok) {
-        let errText = 'Save failed. Please try again.'
-        try { const j = await res.json(); errText = j.error || errText } catch {}
-        setSaveMsg({ type: 'error', text: errText })
-        setSaving(false)
-        return
+      // 2c. Upsert current listings with updated sort order
+      if (listings.length > 0) {
+        const { error: upsertErr } = await supabase
+          .from('listings')
+          .upsert(listings.map((l, i) => listingToDb({ ...l, sort: i })))
+        if (upsertErr) throw upsertErr
       }
 
-      // Success — clear uploaded images (they are now saved)
-      uploadedImages.current = {}
-      setSaveMsg({ type: 'success', text: 'Saved! Your site will update in about a minute.' })
+      setSaveMsg({ type: 'success', text: 'Saved — your changes are live.' })
     } catch (err) {
-      setSaveMsg({ type: 'error', text: 'Network error — please check your connection and try again.' })
+      setSaveMsg({
+        type: 'error',
+        text: err?.message || 'Save failed. Please try again.',
+      })
     } finally {
       setSaving(false)
     }
   }
 
-  // ── Render: not authed ───────────────────────────────────────
-  if (!authed) {
+  // ── Waiting for initial auth check ──────────────────────────
+  if (!authChecked) {
     return (
-      <LoginGate
-        onLogin={handleLogin}
-        error={authError}
-      />
+      <div className="admin-root">
+        <div className="admin-loading">
+          <div className="admin-loading__spinner" />
+          <div>Loading…</div>
+        </div>
+      </div>
     )
   }
 
-  // ── Render: loading ──────────────────────────────────────────
+  // ── Not authed → login gate ──────────────────────────────────
+  if (!authed) {
+    return <LoginGate />
+  }
+
+  // ── Loading site data ────────────────────────────────────────
   if (loading) {
     return (
       <div className="admin-root">
@@ -216,7 +245,7 @@ export default function AdminApp() {
     )
   }
 
-  // ── Render: editor ───────────────────────────────────────────
+  // ── Editor ───────────────────────────────────────────────────
   return (
     <div className="admin-root">
       {/* Header */}
@@ -228,7 +257,7 @@ export default function AdminApp() {
           </div>
           <div className="admin-header__right">
             <div className="admin-header__hint">
-              Changes go live about a minute after you press Save.
+              Changes go live instantly after you press Save.
             </div>
             <a
               href="/"
@@ -275,7 +304,6 @@ export default function AdminApp() {
           <ListingsPanel
             listings={listings}
             onChange={setListings}
-            onAddImage={handleAddImage}
           />
         )}
       </main>

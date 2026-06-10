@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 import { IconClose, IconImage, IconUpload } from './AdminIcons.jsx'
+import { supabase, PHOTO_BUCKET } from '../supabase.js'
 
 // Feature vocabulary
 const FEATURES = [
@@ -65,20 +66,22 @@ export default function ListingForm({ listing, onSave, onClose }) {
     return { ...EMPTY_LISTING }
   })
 
-  // Track uploaded image for this session
-  const [uploadedImage, setUploadedImage] = useState(null) // { dataUrl, filename }
+  // Image upload state
+  const [uploading, setUploading] = useState(false)
+  const [uploadError, setUploadError] = useState(null)
+  const [uploadedFilename, setUploadedFilename] = useState(null)
   const [previewSrc, setPreviewSrc] = useState(() => {
     if (isEdit && listing.image) return listing.image
     return null
   })
   const fileInputRef = useRef(null)
 
-  // Keep preview in sync when URL field changes (and no upload)
+  // Keep preview in sync when URL field is typed manually
   useEffect(() => {
-    if (!uploadedImage && form.image) {
+    if (!uploading && form.image && !uploadedFilename) {
       setPreviewSrc(form.image)
     }
-  }, [form.image, uploadedImage])
+  }, [form.image, uploading, uploadedFilename])
 
   function set(key, val) {
     setForm(prev => ({ ...prev, [key]: val }))
@@ -94,25 +97,38 @@ export default function ListingForm({ listing, onSave, onClose }) {
     })
   }
 
-  function handleFileChange(e) {
+  async function handleFileChange(e) {
     const file = e.target.files?.[0]
     if (!file) return
-    const ext = file.name.split('.').pop().toLowerCase() || 'jpg'
-    // Derive id-based filename
+
+    setUploadError(null)
+    setUploading(true)
+
+    // Derive listing id (use existing id when editing; generate when adding)
     const baseId = isEdit
       ? listing.id
-      : (form.name ? slugify(form.name) + '-' + randomSuffix() : 'listing-' + randomSuffix())
-    const filename = `${baseId}.${ext}`
-    const imagePath = `/images/listings/${filename}`
+      : (form.name ? slugify(form.name) + '-' + randomSuffix() : 'apt-' + randomSuffix())
 
-    const reader = new FileReader()
-    reader.onload = evt => {
-      const dataUrl = evt.target.result
-      setUploadedImage({ dataUrl, filename })
-      setPreviewSrc(dataUrl)
-      set('image', imagePath)
+    const ext = file.name.split('.').pop().toLowerCase() || 'jpg'
+    const path = `${baseId}-${Date.now()}.${ext}`
+
+    try {
+      const { error: uploadErr } = await supabase.storage
+        .from(PHOTO_BUCKET)
+        .upload(path, file, { upsert: true, cacheControl: '3600' })
+
+      if (uploadErr) throw uploadErr
+
+      const url = supabase.storage.from(PHOTO_BUCKET).getPublicUrl(path).data.publicUrl
+
+      setUploadedFilename(file.name)
+      setPreviewSrc(url)
+      set('image', url)
+    } catch (err) {
+      setUploadError(err?.message || 'Upload failed — please try again.')
+    } finally {
+      setUploading(false)
     }
-    reader.readAsDataURL(file)
   }
 
   function handleSave() {
@@ -130,7 +146,7 @@ export default function ListingForm({ listing, onSave, onClose }) {
       baths: form.baths !== '' && form.baths !== null ? Number(form.baths) : null,
     }
 
-    onSave(saved, uploadedImage)
+    onSave(saved)
   }
 
   return (
@@ -292,9 +308,10 @@ export default function ListingForm({ listing, onSave, onClose }) {
                   type="button"
                   className="a-upload-btn"
                   onClick={() => fileInputRef.current?.click()}
+                  disabled={uploading}
                 >
                   <IconUpload />
-                  Choose photo
+                  {uploading ? 'Uploading…' : 'Choose photo'}
                 </button>
                 <input
                   ref={fileInputRef}
@@ -303,22 +320,34 @@ export default function ListingForm({ listing, onSave, onClose }) {
                   style={{ display: 'none' }}
                   onChange={handleFileChange}
                 />
-                {uploadedImage && (
-                  <div style={{ fontSize: 12, color: 'var(--a-gold)' }}>
-                    ✓ {uploadedImage.filename}
+                {uploading && (
+                  <div style={{ fontSize: 12, color: 'var(--a-muted)', marginTop: 4 }}>
+                    <span className="admin-spinner" style={{ display: 'inline-block', marginRight: 6 }} />
+                    Uploading to storage…
+                  </div>
+                )}
+                {!uploading && uploadedFilename && (
+                  <div style={{ fontSize: 12, color: 'var(--a-gold)', marginTop: 4 }}>
+                    ✓ {uploadedFilename}
+                  </div>
+                )}
+                {uploadError && (
+                  <div style={{ fontSize: 12, color: '#e57373', marginTop: 4 }}>
+                    {uploadError}
                   </div>
                 )}
                 <div style={{ fontSize: 12, color: 'var(--a-muted)', marginTop: 8, marginBottom: 4 }}>
-                  Option 2 — Paste image URL or path:
+                  Option 2 — Paste image URL directly:
                 </div>
                 <input
                   type="text"
                   value={form.image}
                   onChange={e => {
                     set('image', e.target.value)
-                    if (uploadedImage) setUploadedImage(null)
+                    setUploadedFilename(null)
+                    setPreviewSrc(e.target.value)
                   }}
-                  placeholder="/images/interior-kitchen-1.jpg"
+                  placeholder="https://…"
                   style={{
                     background: 'var(--a-bg2)',
                     border: '1px solid var(--a-border-soft)',
@@ -383,7 +412,11 @@ export default function ListingForm({ listing, onSave, onClose }) {
 
         <div className="admin-modal__footer">
           <button className="a-btn-secondary" onClick={onClose}>Cancel</button>
-          <button className="a-btn-primary" onClick={handleSave}>
+          <button
+            className="a-btn-primary"
+            onClick={handleSave}
+            disabled={uploading}
+          >
             {isEdit ? 'Save Changes' : 'Add Apartment'}
           </button>
         </div>
