@@ -1,3 +1,4 @@
+import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n.jsx'
 import { useContent, useWa } from '../content.jsx'
@@ -56,8 +57,21 @@ export default function Listings({ variant = 'full', limit }) {
   const featured = variant === 'featured'
   const items = limit ? listings.slice(0, limit) : listings
 
+  // Mobile: the featured row becomes a swipeable carousel — these track the active card for the dots.
+  const trackRef = useRef(null)
+  const [active, setActive] = useState(0)
+  const carousel = featured && items.length > 1
+  const onScroll = () => {
+    const el = trackRef.current
+    if (!el) return
+    const max = el.scrollWidth - el.clientWidth
+    const frac = max > 0 ? Math.abs(el.scrollLeft) / max : 0
+    setActive(Math.round(frac * (items.length - 1)))
+  }
+  const goTo = (i) => trackRef.current?.children[i]?.scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' })
+
   return (
-    <section className={`section listings${bare ? ' listings--bare' : ''}`} id="rentals">
+    <section className={`section listings${bare ? ' listings--bare' : ''}${featured ? ' listings--featured' : ''}`} id="rentals">
       <div className="container">
         {!bare && (
           <div className="section-head listings__head">
@@ -77,9 +91,25 @@ export default function Listings({ variant = 'full', limit }) {
         {items.length === 0 ? (
           <p className="listings__empty reveal">{t('home.noListings')}</p>
         ) : (
-          <div className="listings__grid">
-            {items.map((l) => <Card key={l.id} l={l} />)}
-          </div>
+          <>
+            <div className="listings__grid" ref={trackRef} onScroll={carousel ? onScroll : undefined}>
+              {items.map((l) => <Card key={l.id} l={l} />)}
+            </div>
+            {carousel && (
+              <div className="carousel-dots" role="tablist" aria-label="Apartments">
+                {items.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    className={`cdot${i === active ? ' on' : ''}`}
+                    aria-label={`${t('home.featuredTitle')} ${i + 1}`}
+                    aria-selected={i === active}
+                    onClick={() => goTo(i)}
+                  />
+                ))}
+              </div>
+            )}
+          </>
         )}
 
         {items.length > 0 && featured && (

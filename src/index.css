@@ -72,6 +72,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .btn-ghost{color:var(--text);border:1px solid rgba(246,240,230,.26)}
 .btn-ghost:hover{border-color:var(--gold);background:rgba(216,180,106,.08)}
 .btn-block{width:100%}
+/* tactile press feedback for touch (no hover state on phones) */
+.btn:active{transform:scale(.97)}
+.wa-pill:active,.wa-float:active,.exp-card:active,.card:active{transform:scale(.985)}
 
 .link-arrow{display:inline-flex;align-items:center;gap:8px;color:var(--gold);font-weight:600;font-size:15px}
 .link-arrow svg{width:16px;height:16px;fill:currentColor;transition:transform .2s var(--ease)}
@@ -142,6 +145,14 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   radial-gradient(120% 80% at 82% 0%, rgba(216,180,106,.16), transparent 52%),
   linear-gradient(180deg, rgba(8,9,11,.86) 0%, rgba(8,9,11,.30) 30%, rgba(8,9,11,.42) 58%, rgba(7,8,10,.97) 100%)}
 
+/* mobile star/light field — only painted where the WebGL canvas is off (<720px) */
+.hero__sparks{position:absolute;inset:0;z-index:0;pointer-events:none;display:none}
+.hero__sparks span{position:absolute;border-radius:50%;background:var(--gold-bright);
+  box-shadow:0 0 7px 1px rgba(233,205,140,.7);opacity:0;will-change:opacity,transform;
+  animation:twinkle 3.6s var(--ease) infinite}
+@keyframes twinkle{0%,100%{opacity:0;transform:scale(.4)}50%{opacity:.92;transform:scale(1)}}
+@keyframes heroKen{0%{transform:scale(1.06)}100%{transform:scale(1.16) translateY(-2.5%)}}
+
 .hero__content{position:relative;z-index:2;width:100%;max-width:var(--maxw);margin:0 auto;
   padding:0 clamp(20px,5vw,64px) clamp(40px,7vh,92px)}
 .hero__eyebrow{margin-bottom:26px}
@@ -206,6 +217,12 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .card__entry b{color:var(--cream);font-weight:500}
 .card__cta{margin-top:18px}
 .listings__foot{display:flex;justify-content:center;margin-top:48px}
+
+/* swipe-carousel dots (shown only in the mobile featured carousel) */
+.carousel-dots{display:none}
+.cdot{width:8px;height:8px;border-radius:50%;background:var(--line);padding:0;
+  transition:transform .25s var(--ease),background .25s}
+.cdot.on{background:var(--gold);transform:scale(1.35)}
 
 /* ============================================================= */
 /*  SERVICES                                                     */
@@ -276,7 +293,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 .field{margin-bottom:16px}
 .field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:7px;letter-spacing:.02em}
 .field input,.field textarea{width:100%;background:var(--bg-3);border:1px solid var(--line-soft);border-radius:12px;
-  padding:14px 16px;color:var(--text);font-size:15px;font-family:inherit;transition:border-color .2s}
+  padding:14px 16px;color:var(--text);font-size:16px;font-family:inherit;transition:border-color .2s}
 .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold)}
 .field textarea{resize:vertical;min-height:110px}
 
@@ -327,15 +344,37 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   .hero__cta .btn{width:100%}
   .hero__meta{margin-top:30px}
   .wa-float__txt{display:none}
-  .wa-float{padding:15px;inset-inline-end:16px;bottom:16px}
+  .wa-float{padding:15px;inset-inline-end:16px;bottom:calc(16px + env(safe-area-inset-bottom))}
   .footer__top{flex-direction:column;gap:32px}
   .footer__links{gap:40px}
   .section{padding:clamp(56px,9vh,90px) 0}
+
+  /* featured apartments → edge-to-edge swipe carousel (saves vertical space) */
+  .listings--featured .listings__grid{
+    display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    scrollbar-width:none;padding-bottom:4px;
+    margin-inline:calc(-1 * clamp(20px,5vw,64px));
+    padding-inline:clamp(20px,5vw,64px);
+    scroll-padding-inline-start:clamp(20px,5vw,64px);
+  }
+  .listings--featured .listings__grid::-webkit-scrollbar{display:none}
+  .listings--featured .card{flex:0 0 82%;scroll-snap-align:start;scroll-snap-stop:always}
+  /* fade carousel cards in place (no vertical slide that would clip in the scroller) */
+  .listings--featured .listings__grid .reveal{transform:none}
+  .listings--featured .carousel-dots{display:flex;justify-content:center;gap:9px;margin-top:22px}
 }
 @media (max-width:420px){
-  .stats__grid{grid-template-columns:1fr}
-  .stat{border-inline-end:none;border-bottom:1px solid var(--line-soft)}
-  .stat:last-child{border-bottom:none}
+  /* keep the highlights a compact 2×2 (not a tall 4-row stack) */
+  .stat{padding:22px 16px}
+  .hero__cta .btn{padding:15px 22px}
+  .card__body{padding:18px 18px 20px}
+}
+
+/* phones (<720px = no WebGL canvas): keep the hero alive with a CSS star field
+   + a slow Ken Burns drift on the backdrop, so it never feels static */
+@media (max-width:719px){
+  .hero__sparks{display:block}
+  .hero__img{animation:heroKen 28s ease-in-out infinite alternate}
 }
 
 /* ============================================================= */
