@@ -180,7 +180,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 
 /* stats strip under hero */
 .stats{border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--bg-2)}
-.stats__grid{display:grid;grid-template-columns:repeat(4,1fr)}
+.stats__grid{display:grid;grid-template-columns:repeat(3,1fr)}
 .stat{padding:30px clamp(16px,2vw,28px);border-inline-end:1px solid var(--line-soft)}
 .stat:last-child{border-inline-end:none}
 .stat b{display:block;font-family:var(--serif);font-size:clamp(20px,2vw,26px);color:var(--gold-bright);font-weight:600}
@@ -324,9 +324,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* ============================================================= */
 @media (max-width:1024px){
   .listings__grid,.steps{grid-template-columns:repeat(2,1fr)}
-  .stats__grid{grid-template-columns:repeat(2,1fr)}
-  .stat:nth-child(2){border-inline-end:none}
-  .stat:nth-child(1),.stat:nth-child(2){border-bottom:1px solid var(--line-soft)}
   .sales__grid,.about__grid,.contact__grid{grid-template-columns:1fr;gap:36px}
   .sales__media,.portrait{max-width:480px}
   .about__grid .portrait{order:-1}
