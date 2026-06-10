@@ -6,7 +6,7 @@ export default function HomeExplore() {
   const { t } = useI18n()
   const cards = [
     { to: '/sales', img: '/images/jerusalem-skyline.jpg', eyebrow: t('sales.eyebrow'), title: t('sales.title'), text: t('home.salesText') },
-    { to: '/about', img: '/images/jerusalem-mamilla.jpg', eyebrow: t('about.eyebrow'), title: t('home.aboutTitle'), text: t('home.aboutText') },
+    { to: '/about', img: '/images/YeminMosheTownhouse-2.webp', eyebrow: t('about.eyebrow'), title: t('home.aboutTitle'), text: t('home.aboutText') },
   ]
   return (
     <section className="section explore">
