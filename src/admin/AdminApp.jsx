@@ -30,13 +30,17 @@ function LoginGate({ onLogin }) {
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!email.trim() || !password.trim()) return
+    // Phones love to add a trailing space (autocomplete/double-tap) or capitalise
+    // the first letter — both make Supabase reject the login. Normalise first.
+    const em = email.trim().toLowerCase()
+    const pw = password.trim()
+    if (!em || !pw) return
     setLoading(true)
     setError(null)
 
-    const { error: authError } = await supabase.auth.signInWithPassword({ email, password })
+    const { error: authError } = await supabase.auth.signInWithPassword({ email: em, password: pw })
     if (authError) {
-      setError('Wrong email or password.')
+      setError('Wrong email or password. Check there is no extra space.')
       setLoading(false)
       return
     }
@@ -63,6 +67,10 @@ function LoginGate({ onLogin }) {
               autoFocus
               placeholder="admin@example.com"
               autoComplete="email"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
+              inputMode="email"
             />
             <label className="admin-login__label" htmlFor="login-pw" style={{ marginTop: 12 }}>
               Password
@@ -75,6 +83,9 @@ function LoginGate({ onLogin }) {
               onChange={e => setPassword(e.target.value)}
               placeholder="Enter your password"
               autoComplete="current-password"
+              autoCapitalize="none"
+              autoCorrect="off"
+              spellCheck={false}
             />
             <button type="submit" className="admin-login__btn" disabled={loading}>
               {loading ? 'Signing in…' : 'Enter Admin Panel'}
