@@ -359,8 +359,9 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   }
   .listings--featured .listings__grid::-webkit-scrollbar{display:none}
   .listings--featured .card{flex:0 0 82%;scroll-snap-align:start;scroll-snap-stop:always}
-  /* fade carousel cards in place (no vertical slide that would clip in the scroller) */
-  .listings--featured .listings__grid .reveal{transform:none}
+  /* carousel cards are always visible — the ones off-screen to the side never
+     scroll into the viewport, so they can't rely on the scroll-reveal observer */
+  .listings--featured .listings__grid .reveal{opacity:1;transform:none}
   .listings--featured .carousel-dots{display:flex;justify-content:center;gap:9px;margin-top:22px}
 }
 @media (max-width:420px){
