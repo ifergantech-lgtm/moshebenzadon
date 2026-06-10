@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n.jsx'
-import { SearchIcon, ChatIcon, DealIcon, DocIcon, PenIcon, KeyIcon, ArrowIcon } from './icons.jsx'
+import { SearchIcon, ChatIcon, DealIcon, DocIcon, PenIcon, ArrowIcon } from './icons.jsx'
 
-const ICONS = [SearchIcon, ChatIcon, DealIcon, DocIcon, PenIcon, KeyIcon]
+const ICONS = [SearchIcon, ChatIcon, DealIcon, DocIcon, PenIcon]
 
 export default function Services({ bare = false, preview = false }) {
   const { t } = useI18n()
