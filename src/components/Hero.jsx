@@ -1,7 +1,7 @@
 import { Suspense, lazy, useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n.jsx'
-import { useContent, useWa } from '../content.jsx'
+import { useWa } from '../content.jsx'
 import { WhatsAppIcon, ArrowIcon } from './icons.jsx'
 
 const HeroCanvas = lazy(() => import('./HeroCanvas.jsx'))
@@ -19,7 +19,6 @@ const SPARKS = [
 
 export default function Hero() {
   const { t } = useI18n()
-  const { settings } = useContent()
   const { link } = useWa()
   const [enable3d, setEnable3d] = useState(false)
 
@@ -32,9 +31,6 @@ export default function Hero() {
     rm.addEventListener('change', update)
     return () => { mq.removeEventListener('change', update); rm.removeEventListener('change', update) }
   }, [])
-
-  const min = Number(settings.priceMin || 6000).toLocaleString()
-  const max = Number(settings.priceMax || 25000).toLocaleString()
 
   return (
     <section className="hero" id="home">
@@ -72,7 +68,6 @@ export default function Hero() {
           </Link>
         </div>
         <div className="hero__meta reveal d4">
-          <span className="price-pill"><b>₪{min}&nbsp;–&nbsp;₪{max}</b> <span>{t('hero.priceLabel')}</span></span>
           <span className="hero__note">{t('hero.metaNote')}</span>
         </div>
       </div>
