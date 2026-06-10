@@ -157,7 +157,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   padding:0 clamp(20px,5vw,64px) clamp(40px,7vh,92px)}
 .hero__eyebrow{margin-bottom:26px}
 .hero__title{font-family:var(--serif);font-weight:600;color:#fff;letter-spacing:-.012em;
-  font-size:clamp(34px,5vw,66px);line-height:1.04;text-shadow:0 2px 44px rgba(0,0,0,.45);max-width:15ch}
+  font-size:clamp(40px,5.6vw,76px);line-height:1.04;text-shadow:0 2px 44px rgba(0,0,0,.45);max-width:15ch}
 .hero__title em{font-style:italic;color:var(--gold-bright)}
 .hero__sub{margin-top:26px;max-width:560px;font-size:clamp(15px,1.3vw,18.5px);line-height:1.72;
   color:rgba(244,238,228,.9);font-weight:300}
@@ -336,7 +336,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 @media (max-width:680px){
   .listings__grid,.steps{grid-template-columns:1fr}
-  .hero__title{font-size:clamp(34px,10vw,52px)}
+  .hero__title{font-size:clamp(40px,11.5vw,60px)}
   .hero__cta{gap:12px;flex-direction:column;align-items:stretch}
   .hero__cta .btn{width:100%}
   .hero__meta{margin-top:30px}
@@ -441,7 +441,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* short / cramped viewports — keep the hero clear of the nav */
 @media (max-height:820px){
   .hero__eyebrow{margin-bottom:12px}
-  .hero__title{font-size:clamp(28px,4.2vw,48px)}
+  .hero__title{font-size:clamp(36px,5vw,56px)}
   .hero__sub{margin-top:12px;font-size:14.5px;line-height:1.55;max-width:460px}
   .hero__cta{margin-top:18px}
   .hero__meta{margin-top:16px}
@@ -450,7 +450,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 @media (max-height:660px){
   .hero__sub{display:none}
-  .hero__title{font-size:clamp(26px,3.8vw,40px)}
+  .hero__title{font-size:clamp(32px,4.5vw,46px)}
 }
 
 /* reduced motion */
