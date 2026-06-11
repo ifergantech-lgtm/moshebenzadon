@@ -155,7 +155,7 @@ export default function ListingForm({ listing, onSave, onClose }) {
   }
 
   return (
-    <div className="admin-modal-overlay" onClick={e => { if (e.target === e.currentTarget) onClose() }}>
+    <div className="admin-modal-overlay">
       <div className="admin-modal">
         <div className="admin-modal__header">
           <div className="admin-modal__title">
