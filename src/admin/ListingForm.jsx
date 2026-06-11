@@ -70,6 +70,7 @@ export default function ListingForm({ listing, onSave, onClose }) {
   const [uploading, setUploading] = useState(false)
   const [uploadError, setUploadError] = useState(null)
   const [uploadedFilename, setUploadedFilename] = useState(null)
+  const [err, setErr] = useState(null)
   const [previewSrc, setPreviewSrc] = useState(() => {
     if (isEdit && listing.image) return listing.image
     return null
@@ -132,10 +133,14 @@ export default function ListingForm({ listing, onSave, onClose }) {
   }
 
   function handleSave() {
-    // Build final listing object
-    const id = isEdit
-      ? listing.id
-      : (form.name ? slugify(form.name) + '-' + randomSuffix() : 'listing-' + randomSuffix())
+    // Require the essentials so a blank or ₪0 listing can't be created by mistake
+    if (!form.name.trim()) { setErr('Please enter an apartment name.'); return }
+    if (!form.price || Number(form.price) <= 0) { setErr('Please enter the monthly rent.'); return }
+    setErr(null)
+
+    // Build final listing object — slug never empty (names like "!!!" fall back to "apt")
+    const slug = slugify(form.name) || 'apt'
+    const id = isEdit ? listing.id : slug + '-' + randomSuffix()
 
     const saved = {
       ...form,
@@ -411,6 +416,7 @@ export default function ListingForm({ listing, onSave, onClose }) {
         </div>
 
         <div className="admin-modal__footer">
+          {err && <div style={{ color: '#e57373', fontSize: 13, marginRight: 'auto', alignSelf: 'center' }}>{err}</div>}
           <button className="a-btn-secondary" onClick={onClose}>Cancel</button>
           <button
             className="a-btn-primary"
