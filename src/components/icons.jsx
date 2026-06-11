@@ -103,6 +103,18 @@ export const UserIcon = (p) => (
   </svg>
 )
 
+/* bottom-nav icons — stroke driven */
+export const HomeIcon = (p) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...p}>
+    <path d="M4 11l8-7 8 7M6 9.5V20h12V9.5M10 20v-5h4v5" />
+  </svg>
+)
+export const BuildingIcon = (p) => (
+  <svg viewBox="0 0 24 24" aria-hidden="true" {...p}>
+    <path d="M5 21V5a1 1 0 011-1h7a1 1 0 011 1v16M14 21V10h4a1 1 0 011 1v10M8 8h3M8 12h3M8 16h3M3 21h18" />
+  </svg>
+)
+
 // Personal monogram for Moshe — an elegant gold "M" in a dark bordered square.
 export const BrandMark = (p) => (
   <svg viewBox="0 0 64 64" aria-hidden="true" {...p}>

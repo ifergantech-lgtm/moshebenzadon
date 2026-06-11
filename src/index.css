@@ -137,7 +137,7 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 /* ============================================================= */
 /*  HERO                                                          */
 /* ============================================================= */
-.hero{position:relative;min-height:100svh;min-height:100vh;width:100%;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end}
+.hero{position:relative;min-height:100vh;min-height:100svh;width:100%;overflow:hidden;isolation:isolate;display:flex;align-items:flex-end}
 .hero__media{position:absolute;inset:0;z-index:-3}
 .hero__img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 42%}
 .hero__canvas{position:absolute;inset:0;z-index:-2}
@@ -330,8 +330,6 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
 }
 @media (max-width:960px){
   .nav__links{display:none}
-  .nav__right .lang{display:none}
-  .nav__burger{display:flex}
   .nav .wa-pill{display:none}
 }
 @media (max-width:680px){
@@ -458,4 +456,34 @@ button{font-family:inherit;cursor:pointer;border:none;background:none;color:inhe
   *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important}
   .reveal{opacity:1 !important;transform:none !important}
   .hero__scroll i{animation:none}
+}
+
+/* ============================================================= */
+/*  MOBILE BOTTOM NAV — replaces the hamburger drawer            */
+/* ============================================================= */
+.bottomnav{display:none}
+@media (max-width:960px){
+  .bottomnav{
+    position:fixed;left:0;right:0;bottom:0;z-index:96;display:flex;
+    background:rgba(10,11,13,.94);backdrop-filter:blur(18px);
+    border-top:1px solid var(--line);
+    padding:9px 6px calc(9px + env(safe-area-inset-bottom));
+  }
+  .bottomnav__tab{position:relative;flex:1;min-width:0;display:flex;flex-direction:column;
+    align-items:center;gap:5px;padding:2px;color:var(--muted-2);font-size:10px;font-weight:600;
+    letter-spacing:.03em;text-transform:uppercase;transition:color .2s}
+  .bottomnav__tab span{max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .bottomnav__icon{width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.7;
+    stroke-linecap:round;stroke-linejoin:round}
+  .bottomnav__tab:active{transform:scale(.93)}
+  .bottomnav__tab.active{color:var(--gold)}
+  .bottomnav__tab.active::before{content:'';position:absolute;top:-9px;left:50%;transform:translateX(-50%);
+    width:24px;height:2px;background:var(--gold);border-radius:0 0 3px 3px}
+
+  /* keep content clear of the fixed bar */
+  .hero__content{padding-bottom:calc(92px + env(safe-area-inset-bottom))}
+  .hero__meta{display:none}
+  .hero__scroll{display:none}
+  .footer{padding-bottom:calc(94px + env(safe-area-inset-bottom))}
+  .wa-float{bottom:calc(76px + env(safe-area-inset-bottom))}
 }

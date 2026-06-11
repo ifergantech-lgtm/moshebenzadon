@@ -3,6 +3,7 @@ import { Outlet, useLocation } from 'react-router-dom'
 import { useI18n } from '../i18n.jsx'
 import { useReveal } from '../hooks/useReveal.js'
 import Nav from './Nav.jsx'
+import BottomNav from './BottomNav.jsx'
 import Footer from './Footer.jsx'
 import WhatsAppFloat from './WhatsAppFloat.jsx'
 
@@ -30,6 +31,7 @@ export default function Layout() {
       </main>
       <Footer />
       <WhatsAppFloat />
+      <BottomNav />
     </>
   )
 }

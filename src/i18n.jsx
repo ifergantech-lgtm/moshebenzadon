@@ -237,7 +237,7 @@ const dict = {
   },
 
   es: {
-    nav: { home: 'Inicio', rentals: 'Alquileres', sales: 'Ventas', services: 'Cómo te ayudo', about: 'Sobre Moshe', contact: 'Contacto', cta: 'WhatsApp' },
+    nav: { home: 'Inicio', rentals: 'Alquileres', sales: 'Ventas', services: 'Cómo te ayudo', about: 'Sobre mí', contact: 'Contacto', cta: 'WhatsApp' },
     hero: {
       eyebrow: 'Jerusalén · Alquileres y Ventas',
       title1: 'Alquileres en Jerusalén,',
